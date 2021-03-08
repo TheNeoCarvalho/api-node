@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URL, { useUnifiedTopology: true, useNewUrlParser: true, useMongoClient: true})
+mongoose.connect(process.env.MONGODB_URL, 
+    { 
+        useUnifiedTopology: true, 
+        useNewUrlParser: true
+    }
+)
 mongoose.Promise = global.Promise
 
-export default mongoose
+module.exports = mongoose

@@ -20,9 +20,13 @@ cd api-node
 yarn
 ```
 
-## Alterar o nome do arquivo _.env-example_ para _.env_
+## Alterar o nome do arquivo _.env-example_ para _.env_ e as variáveis.
 
-<br>
+```
+HOST=
+PORT=
+MONGODB_URL=
+```
 
 ## Rodar a aplicação
 
