@@ -12,5 +12,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/task', taskController.create)
+router.get('/tasks', taskController.get)
+router.delete('/task/:id', taskController.delete)
+router.put('/task/:id', taskController.update)
 
 module.exports = router
