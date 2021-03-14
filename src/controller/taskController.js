@@ -2,6 +2,11 @@ const Task = require('../models/tasks')
 
 class TaskController {
 
+    async index(req, res){
+        const tasks = await Task.find()
+        return res.status(200).json(tasks)
+    }
+
     async create(req, res){
 
         const {title} = req.body
@@ -19,22 +24,9 @@ class TaskController {
         return res.status(201).json(taskCreated)
     }
 
-    async get(req, res){
-        const tasks = await Task.find()
-
-        if(tasks.length < 1){
-            return res.status(300).json({msg: "No tasks found"})
-        }
-
-        return res.status(200).json(tasks)
-    }
-
     async delete(req, res){
         const {id} = req.params
-
-        const task = await Task.findById(id)
-        task.delete()
-
+        await Task.findOneAndDelete(id)
         return res.send()
     }
 
@@ -45,11 +37,11 @@ class TaskController {
         const taskUpdated = {
             status
         }
-
-        const task = await Task.findById(id)
-        await task.updateOne(taskUpdated)
-
+        
+        const task = await Task.findOne({'_id': id})
+        await task.update(taskUpdated)
         return res.send()
     }
+
 }
 module.exports = TaskController

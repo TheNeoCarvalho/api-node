@@ -1,5 +1,10 @@
 const express = require('express')
 
+const {
+    verifyTaskAlreadyExists, 
+    verifyTaskInBody
+} = require('./middleware/verify')
+
 require('dotenv').config()
 
 const TaskController = require('./controller/taskController')
@@ -10,10 +15,9 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send({opa: 'API'})
 })
-
-router.post('/task', taskController.create)
-router.get('/tasks', taskController.get)
+router.get('/tasks', taskController.index)
+router.post('/task', verifyTaskInBody, verifyTaskAlreadyExists, taskController.create)
 router.delete('/task/:id', taskController.delete)
-router.put('/task/:id', taskController.update)
+router.patch('/task/:id', taskController.update)
 
 module.exports = router
