@@ -20,4 +20,5 @@ const verifyTaskInBody = async(req, res, next) => {
     return next()
 }
 
-module.exports = { verifyTaskAlreadyExists, verifyTaskInBody}
+
+module.exports = { verifyTaskAlreadyExists, verifyTaskInBody }

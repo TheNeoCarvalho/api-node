@@ -1,23 +1,34 @@
-const express = require('express')
+const express = require('express');
+require('dotenv').config();
+
+const TaskController = require('./controller/taskController');
+const UserController = require('./controller/userController');
+const AuthController = require('./controller/authController');
 
 const {
     verifyTaskAlreadyExists,
     verifyTaskInBody
-} = require('./middleware/verify')
+} = require('./middleware/verify');
 
-require('dotenv').config()
+const taskController = new TaskController();
+const userController = new UserController();
+const authController = new AuthController();
 
-const TaskController = require('./controller/taskController')
-const taskController = new TaskController()
-
-const router = express.Router()
+const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send({ opa: 'API' })
-})
-router.get('/tasks', taskController.index)
-router.post('/task', verifyTaskInBody, verifyTaskAlreadyExists, taskController.create)
-router.delete('/task/:id', taskController.delete)
-router.patch('/task/:id', taskController.update)
+    res.send({ opa: 'API' });
+});
 
-module.exports = router
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
+
+
+router.post('/user', userController.create);
+
+router.get('/tasks', taskController.index);
+router.post('/task', verifyTaskInBody, verifyTaskAlreadyExists, taskController.create);
+router.delete('/task/:id', taskController.delete);
+router.patch('/task/:id', taskController.update);
+
+module.exports = router;
