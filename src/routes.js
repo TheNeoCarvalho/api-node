@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {
-    verifyTaskAlreadyExists, 
+    verifyTaskAlreadyExists,
     verifyTaskInBody
 } = require('./middleware/verify')
 
@@ -13,7 +13,7 @@ const taskController = new TaskController()
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.send({opa: 'API'})
+    res.send({ opa: 'API' })
 })
 router.get('/tasks', taskController.index)
 router.post('/task', verifyTaskInBody, verifyTaskAlreadyExists, taskController.create)
