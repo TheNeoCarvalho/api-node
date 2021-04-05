@@ -20,6 +20,11 @@ cd api-node
 yarn
 ```
 
+## Acessar documentação no Swagger
+
+```
+http://localhost:3000/doc
+```
 ## Alterar o nome do arquivo _.env-example_ para _.env_ e as variáveis.
 
 ```

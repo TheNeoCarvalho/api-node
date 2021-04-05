@@ -7,7 +7,8 @@ const AuthController = require('./controller/authController');
 
 const {
     verifyTaskAlreadyExists,
-    verifyTaskInBody
+    verifyTaskInBody,
+    verifyJWT
 } = require('./middleware/verify');
 
 const taskController = new TaskController();
@@ -21,14 +22,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', authController.login);
-router.post('/logout', authController.logout);
-
-
 router.post('/user', userController.create);
 
-router.get('/tasks', taskController.index);
-router.post('/task', verifyTaskInBody, verifyTaskAlreadyExists, taskController.create);
-router.delete('/task/:id', taskController.delete);
-router.patch('/task/:id', taskController.update);
+// router.use(verifyJWT)
+router.post('/logout', verifyJWT, authController.logout);
+
+router.get('/tasks', verifyJWT, taskController.index);
+router.post('/task', verifyJWT, verifyTaskInBody, verifyTaskAlreadyExists, taskController.create);
+router.delete('/task/:id', verifyJWT, taskController.delete);
+router.patch('/task/:id', verifyJWT, taskController.update);
 
 module.exports = router;

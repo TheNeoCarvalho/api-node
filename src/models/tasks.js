@@ -1,6 +1,10 @@
 const mongoose = require('../database/database')
 
 const taskSchema = new mongoose.Schema({
+    id_user: {
+        type: String,
+        require: true
+    },
     title: {
         type: String,
         require: true
@@ -8,7 +12,7 @@ const taskSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         require: true
-    }, 
+    },
     createdAt: {
         type: Date,
         default: Date.now
